@@ -1,0 +1,17 @@
+name: Scraper
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # Runs at 3am UTC/11pm EST
+  workflow_dispatch:      # Manual Trigger
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: python main.py
