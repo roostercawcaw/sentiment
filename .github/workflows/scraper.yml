@@ -11,6 +11,9 @@ env:
 jobs:
   run-scraper:
     runs-on: ubuntu-latest
+    env:
+      EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
     steps: 
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
