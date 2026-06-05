@@ -2,7 +2,7 @@ import time
 from datetime import datetime
 import smtplib
 from email.mime.text import MIMEText
-from email.mime.multiport import MIMEMultipart
+from email.mime.multipart import MIMEMultipart
 
 #Email config from environment variables
 EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
