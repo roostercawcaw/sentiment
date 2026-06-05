@@ -1,5 +1,7 @@
 name: Scraper
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 on:
   schedule:
     - cron: '0 3 * * *' # Runs at 3am UTC/11pm EST
