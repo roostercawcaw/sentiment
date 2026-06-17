@@ -1,13 +1,29 @@
-import time
-from datetime import datetime
-import smtplib
+cat > /mnt/user-data/outputs/main.py << 'EOF'
+import praw
 import os
+import smtplibimport smtplib
+from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 #Email config from environment variables
 EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+
+def get_wsb_posts():
+    reddit = praw.Reddit(
+        client_id="dummy",
+        client_secret="dummy",
+        user_agent="wsb_scraper/1.0 by anonymous"
+    )
+    reddit._core._requestor._http.headers.update({
+        "Authorization": ""
+    })
+
+    posts = []
+    for post in reddit.subreddit("wallstreetbets").hot(limit=10):
+        posts.append(f"⬆️ {post.score}
+    return posts
 
 def send_email(subject, body):
     msg = MIMEMultipart()
@@ -25,25 +41,20 @@ def send_email(subject, body):
 
 def main():
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
+    print(f"[{now}] Bot started successfully!")
+    
     # This is where scraper output goes later
-    print("Bot started successfully!")
-    print(f"[{now}] Bot is ran successfully!")
+    try:
+        posts = get_wsb_posts()
+        body = f"WSB Top Posts - {now}\n\n" + "\n".join(posts)
+    except Exception as e:
+        body = f"Error fetching posts: {e}"
+
+    print(body)
     print(f"All done!")
 
-    output = f"""
-Bot Report - {now}
-
-Status: Running successfully✅
-Next step: Reddit + crypto sentiment data will appear here
-
-"""
-    print(output)
-    send_email(
-        subject=f"Bot Report - {now}",
-        body=output
-    )
+    send_email(f"WSB Report - {now}", body)
 
 if __name__ == "__main__":
   main()
-
+EOF
