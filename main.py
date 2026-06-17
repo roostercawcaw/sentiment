@@ -1,6 +1,7 @@
 import praw
 import os
 import smtplib
+import urllib.request
 from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -10,18 +11,13 @@ EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
 def get_wsb_posts():
-    reddit = praw.Reddit(
-        client_id="dummy",
-        client_secret="dummy",
-        user_agent="wsb_scraper/1.0 by anonymous"
-    )
-    reddit._core._requestor._http.headers.update({
-        "Authorization": ""
-    })
-
+    url = "https://www.reddit.com/r/wallstreetbets/hot.json?limit=10"
+    req = urllib.request.Request(url, headers={"User-Agent": "wsb-scraper/1.0"})
+    with urllib.request.urlopen(req) as response
+        data = json.loads(response.read().decode())
     posts = []
-    for post in reddit.subreddit("wallstreetbets").hot(limit=10):
-        posts.append(f"⬆️ {post.score} | {post.title}")
+    for post in data["data"]["chidren"]:
+        posts.append(f"⬆️ {p['score'] | {p['title']")
     return posts
 
 def send_email(subject, body):
