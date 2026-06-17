@@ -22,7 +22,7 @@ def get_wsb_posts():
 
     posts = []
     for post in reddit.subreddit("wallstreetbets").hot(limit=10):
-        posts.append(f"⬆️ {post.score}
+        posts.append(f"⬆️ {post.score} | {post.title}")
     return posts
 
 def send_email(subject, body):
