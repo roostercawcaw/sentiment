@@ -1,4 +1,3 @@
-cat > /mnt/user-data/outputs/main.py << 'EOF'
 import praw
 import os
 import smtplibimport smtplib
@@ -57,4 +56,3 @@ def main():
 
 if __name__ == "__main__":
   main()
-EOF
