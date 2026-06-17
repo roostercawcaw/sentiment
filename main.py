@@ -17,7 +17,7 @@ def get_wsb_posts():
         data = json.loads(response.read().decode())
     posts = []
     for post in data["data"]["chidren"]:
-        posts.append(f"⬆️ {p['score'] | {p['title']")
+        posts.append(f"⬆️ {p['score']} | {p['title']}")
     return posts
 
 def send_email(subject, body):
