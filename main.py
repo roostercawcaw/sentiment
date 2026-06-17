@@ -13,7 +13,7 @@ EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 def get_wsb_posts():
     url = "https://www.reddit.com/r/wallstreetbets/hot.json?limit=10"
     req = urllib.request.Request(url, headers={"User-Agent": "wsb-scraper/1.0"})
-    with urllib.request.urlopen(req) as response
+    with urllib.request.urlopen(req) as response:
         data = json.loads(response.read().decode())
     posts = []
     for post in data["data"]["chidren"]:
