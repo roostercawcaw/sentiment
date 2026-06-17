@@ -1,6 +1,6 @@
 import praw
 import os
-import smtplibimport smtplib
+import smtplib
 from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
